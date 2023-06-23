@@ -1,0 +1,13 @@
+name:  Premier League (2013/2014)
+code:  u3
+category:  Interaction
+long-description:  These are results of football games in England and Wales from the Premier League in the season 2013/2014, in form of a directed, signed graph.  Nodes are teams, and each directed edge from A to B denotes that team A played at home against team B.  The edge weights are the goal difference, and thus positive if the home team wins, negative when the away team wins, and zero for a draw.  The exact game results are not represented; only the goal differences are.  The data was copied by hand from Wikipedia. 
+entity-names:  team
+relationship-names:  game
+extr:  league
+cite:  konect:league
+timeiso: 2013/2014
+tags:  #skew #clique #zeroweight
+
+
+
