@@ -1,0 +1,127 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Der Einstiegspunkt des Latex-Dokuments                           %%
+%%  Diese Datei führt alle Quelldokumente zusammen.                  %%
+%%                                                                   %%
+%%  Durch den Nutzer durchzuführende Änderungen                      %%
+%%  sind entsprechend markiert.                                      %%
+%%                                                                   %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[
+paper=A4,            %a4paper, alle weiteren Papierformat einstellbar
+11pt,                % Schriftgröße (12pt, 11pt (Standard))
+BCOR=12mm,           % Bindekorrektur, bspw. 1 cm
+headsepline,         % Trennline zum Seitenkopf  
+footsepline,         % Trennline zum Seitenfuß
+index=totoc,
+listof=totoc,
+bibliography=totoc,
+]
+{scrbook}
+
+\input{ETTI6_TL_Lite}          % Laden aller notwendigen Pakte und Definitionen	
+\usepackage{tabu} 
+
+
+%% Packages für Grafiken & Abbildungen 
+\usepackage{subfigure} %%Teilabbildungen in einer Abbildung
+\usepackage{caption}
+
+\newenvironment{abstract}{}{}
+\usepackage{abstract}
+
+
+\RequirePackage{float}							% Gleitobjekte(table,figure): Erweitertung
+\RequirePackage{placeins}						% Gleitobjekte(table,figure): Position einschränken
+
+%% Sonstige Pakete 
+\usepackage{eurosym}                            % Euro Symbol
+\usepackage{dsfont}                             % Fonts für Zahlenbereiche
+
+
+%% Abkürzungen
+\input{source/acronym.tex}
+\makeglossaries
+
+
+\lstdefinelanguage{NOSTYLE}{
+  alsodigit = {-},
+  keywords = {}
+}
+
+\setlength{\parindent}{0em}
+
+\usepackage{pgf-pie}
+\usepackage{pgfgantt}
+\usepackage{blindtext}
+\usepackage{verbatim}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Die folgenden Variablen sind durch den Nutzer anzupassen.             %%
+%% Sie werden in den entsprechenden Dokumenten automatisch übernommen;   %%
+%% Änderungen in den Dokumenten sind dann nicht mehr nötig.              %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\theCourseOfStudies{Technische Informatik und Kommunikationstechnik}
+\def\theCertificate{Bachelorarbeit}
+\def\theTitle{Bewertung von Community Detection Algorithmen mit der CDlib-Bibliothek}
+\def\theSubTitle{}
+\def\theAuthor{Markus Konietzka}
+\def\theAdviserA{Prof. Dr. rer. nat. Andrea Baumann}
+\def\theAdviserB{~}
+\def\thePublicationDate{30.06.2023}
+\def\thePublicationMY{Juni 2023}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareMathOperator{\ceil}{ceil}
+\DeclareMathOperator{\floor}{floor}
+
+\newcounter{savepage}
+\begin{document}
+
+
+%Caption nach unten setzen
+\captionsetup[figure]{skip=10pt}
+%\captionsetup[table]{skip=10pt}
+\captionsetup[lstlisting]{skip=10pt}
+
+\pagenumbering{Roman}
+
+%% Titelseite
+\include{source/000_title}
+\include{source/001_declaration}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Die folgenden Variable ist durch den Nutzer anzupassen.               %%
+%% Sollte kein Abstract gewünscht sein, kann die folgende Variable       %%
+%% auskommentiert werden.                                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{source/002_abstract}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Inhaltsverzeichnis
+\setcounter{tocdepth}{2}                %% Festlegen der Tiefe des Inhaltsverzeichnisses
+\setcounter{secnumdepth}{2}
+
+\tableofcontents                        %% Erzeugen des Inhaltsverzeichnisses
+\cleardoublepage
+\pagenumbering{arabic}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Die folgenden Variablen sind durch den Nutzer anzupassen.             %%
+%% Hier werden die einzelnen Quelldokumente aus dem sourece-Folder       %%
+%% referenziert, um im pdf-Dokument gerendert zu werden.                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hauptteil der Arbeit 
+\include{source/100_introduction}
+
+\cleardoublepage 
+\pagenumbering{Roman}
+\cleardoublepage
+
+% Erstellen des Anhangs
+\include{source/801_appendix}
+
+\end{document}
