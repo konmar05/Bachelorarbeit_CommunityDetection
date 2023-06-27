@@ -1,6 +1,7 @@
 from Vereine import *
 import networkx as nx
 
+
 def read_data(filepointer):
     """
     @description: reads txt-file and returns a nested list in following form: file = [line1=[], line2=[], ...]
@@ -43,7 +44,7 @@ def create_nodes(graph, dictionary):
     id_for_node = 1
     for player, clubs in dictionary.items():
         graph.add_node(id_for_node, name=player)
-        id_for_node = id_for_node+1
+        id_for_node = id_for_node + 1
 
 
 def add_edges_to_nodes(graph, dictionary):
@@ -53,10 +54,10 @@ def add_edges_to_nodes(graph, dictionary):
     """
 
     knoten = graph.number_of_nodes()
-    for i in range(1, knoten+1):
-        for j in range(1, knoten+1):
+    for i in range(1, knoten + 1):
+        for j in range(1, knoten + 1):
 
-            if (graph._node[i] == graph._node[j]):
+            if graph._node[i] == graph._node[j]:
                 break
             spieler1 = graph._node[i].get('name')
             spieler2 = graph._node[j].get('name')
@@ -64,21 +65,35 @@ def add_edges_to_nodes(graph, dictionary):
             vereine2 = dictionary[spieler2]
             for jahr1, club1 in vereine1.vereine.items():
                 for jahr2, club2 in vereine2.vereine.items():
-                    if (jahr1 == jahr2):
-                        if (club1 == club2):
-                            if (graph.has_edge(i, j)):
+                    if jahr1 == jahr2:
+                        if club1 == club2:
+                            if graph.has_edge(i, j):
                                 break
                             else:
                                 graph.add_edge(i, j)
 
 
-def bundesliga():
-    fp = open('place data url here', 'r')
-    bundesliga = {}
+def bundesliga(string):
+    """
+
+    :param string: choose between different sizes for the graph, complete shows all players, small a random amount  of 67 players, middle shows only players from the following clubs (FCA, VFB, FCB, TSG, SCF)
+    :return: returns a generated networkx graph according to above conditions
+    """
+
+    url = 'data/bundesliga'
+    if string == 'complete':
+        url = url + 'bundesliga_complete.txt'
+    elif string == 'small':
+        url = url + 'bundesliga_small.txt'
+    elif string == 'middle':
+        url = url + 'bundesliga_FCA_VFB_FCB_TSG_SCF.txt'
+
+    fp = open(url, 'r')
+    dict_player = {}
     graph = nx.Graph()
     data = read_data(fp)
-    create_dict_vereine(bundesliga, data)
-    create_nodes(graph, bundesliga)
-    add_edges_to_nodes(graph, bundesliga)
+    create_dict_vereine(dict_player, data)
+    create_nodes(graph, dict_player)
+    add_edges_to_nodes(graph, dict_player)
 
     return graph
