@@ -7,6 +7,7 @@ import networkx as nx
 import networkx.algorithms.community.quality as score
 import matplotlib.pyplot as plt
 from cdlib import algorithms, viz, evaluation, benchmark, datasets
+from Bundesliga import bundesliga
 
 
 def gen_graph(filepointer):
@@ -38,19 +39,23 @@ def show_fitness_scores(graph, com_result):
 
 def main():
 
-    fp = open('data/dolphins/out.txt', 'r')
-    g = gen_graph(fp)
+    #fp = open('data/euroroad/out.txt', 'r')
+    g = bundesliga('small')
     pos = nx.spring_layout(g)
+    com = algorithms.girvan_newman(g, 5)
+    lv = algorithms.louvain(g)
+    rw = algorithms.walktrap(g)
+    #print('gw', score.modularity(g, com.communities))
+    #print('lv', score.modularity(g, lv.communities))
 
-    list_results = [algorithms.louvain(g),
-                    algorithms.girvan_newman(g, 4),
-                    algorithms.label_propagation(g),
-                    algorithms.belief(g)]
+    show_fitness_scores(g, com)
+    show_fitness_scores(g, lv)
+    show_fitness_scores(g, rw)
 
-    for res in list_results:
-        viz.plot_network_clusters(g, res, pos, figsize=(10, 10))
-        show_fitness_scores(g, res)
-
+    #nx.draw(g, pos, with_labels=True)
+    viz.plot_network_clusters(g, lv, pos, figsize=(10, 10))
+    viz.plot_network_clusters(g, com, pos, figsize=(10, 10))
+    viz.plot_network_clusters(g, rw, pos, figsize=(10, 10))
     plt.show()
 
 # Press the green button in the gutter to run the script.
