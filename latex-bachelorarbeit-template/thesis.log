@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.25)  5 JUL 2023 07:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.25)  10 JUL 2023 07:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2662,11 +2662,11 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 71298 strings out of 478268
- 1635840 string characters out of 5846346
+ 71301 strings out of 478268
+ 1635864 string characters out of 5846346
  2778199 words of memory out of 5000000
  88064 multiletter control sequences out of 15000+600000
- 544085 words of font info for 169 fonts, out of 8000000 for 9000
+ 544210 words of font info for 171 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  108i,21n,117p,10601b,2693s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
@@ -2675,7 +2675,7 @@ exlive/2022/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2
 mf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2022/texmf-dist
 /fonts/type1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2022/texmf-dist/fonts
 /type1/urw/times/utmr8a.pfb>
-Output written on thesis.pdf (32 pages, 174649 bytes).
+Output written on thesis.pdf (32 pages, 175213 bytes).
 PDF statistics:
  490 PDF objects out of 1000 (max. 8388607)
  408 compressed objects within 5 object streams
