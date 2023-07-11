@@ -1,5 +1,4 @@
 import pickle
-
 import networkx as nx
 import networkx.algorithms.community.quality as m
 import matplotlib.pyplot as plt
@@ -82,6 +81,20 @@ def generate_benchmark_graphs():
     nx.write_edgelist(grp_small, 'benchmark/grp_small.txt', delimiter=' ')
     nx.write_edgelist(grp_medium, 'benchmark/grp_medium.txt', delimiter=' ')
     nx.write_edgelist(grp_large, 'benchmark/grp_large.txt', delimiter=' ')
+
+
+def create_graph_layouts():
+    """
+    function was used one time for each graph, no further usage needed
+    """
+    # load and create graph
+    fp1 = open('benchmark/grp_medium.txt')
+    g = generate_graph_from_edgelist(fp1)
+    fp1.close()
+
+    # choose place to store .pkl file
+    with open('benchmark/layouts/grp_medium.pkl', 'wb') as fp2:
+        pickle.dump(nx.spring_layout(g), fp2)
 
 
 # todo
