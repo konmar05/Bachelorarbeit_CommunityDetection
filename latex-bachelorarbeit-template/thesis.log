@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.25)  10 JUL 2023 15:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.25)  11 JUL 2023 21:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2500,6 +2500,11 @@ LaTeX Warning: Citation 'noauthor_software_nodate' on page 2 undefined on input
 
 ]
 chapter 2.
+
+Underfull \hbox (badness 10000) in paragraph at lines 90--93
+
+ []
+
 [5] [6]
 chapter 3.
 
@@ -2668,7 +2673,7 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
  ) 
 Here is how much of TeX's memory you used:
  71363 strings out of 478268
- 1636870 string characters out of 5846346
+ 1636867 string characters out of 5846346
  2779430 words of memory out of 5000000
  88087 multiletter control sequences out of 15000+600000
  545585 words of font info for 193 fonts, out of 8000000 for 9000
@@ -2689,7 +2694,7 @@ type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/u
 rw/helvetic/uhvr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/helv
 etic/uhvro8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr
 8a.pfb>
-Output written on thesis.pdf (34 pages, 230313 bytes).
+Output written on thesis.pdf (34 pages, 230366 bytes).
 PDF statistics:
  561 PDF objects out of 1000 (max. 8388607)
  463 compressed objects within 5 object streams
