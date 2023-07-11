@@ -48,6 +48,7 @@ def show_fitness_scores(graph, com_result):
     print('scaled_density: ', evaluation.scaled_density(graph, com_result))
     print('\n')
 
+
 def show_modularity_scores(graph, com_result):
     """
     functions for having q quick vieww in cmd-line to the modularity scores
