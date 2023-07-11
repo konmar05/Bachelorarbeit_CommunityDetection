@@ -7,7 +7,15 @@ from cdlib import algorithms, viz, evaluation, benchmark, datasets
 
 
 def generate_graph_from_edgelist(filepointer):
-
+    """
+    reads an edge list and creates a complete networkX Graph
+    file has to be in folling form:
+    >> 1 3
+    >> 3 6
+    each line is represents an edge, between to nodes, nodes have to be seperated by a whitespace
+    :param filepointer: to read from the given file
+    :return: networkX graph
+    """
     list_edges = []
     lines = filepointer.readlines()
     for l in lines:
@@ -23,6 +31,12 @@ def generate_graph_from_edgelist(filepointer):
 
 
 def show_fitness_scores(graph, com_result):
+    """
+    functions for having a quick view in cmd-line to the major fitness scores from an algorithm
+    :param graph: networkX graph
+    :param com_result: communities as NodeClustering
+    :return: no return parameter
+    """
     print('Erkannte Communities: ', len(com_result.communities))
     print('Modularity-Score: ', m.modularity(graph, com_result.communities))
     print('avg_distance: ', evaluation.avg_distance(graph, com_result))
@@ -36,6 +50,12 @@ def show_fitness_scores(graph, com_result):
     print('\n')
 
 def show_modularity_scores(graph, com_result):
+    """
+    functions for having q quick vieww in cmd-line to the modularity scores
+    :param graph: networkX graph
+    :param com_result: communities as NodeClustering
+    :return: no return parameter
+    """
     print('erdos_renyi: ', evaluation.erdos_renyi_modularity(graph, com_result))
     print('link: ', evaluation.link_modularity(graph, com_result))
     print('modularity_density: ', evaluation.modularity_density(graph, com_result))
