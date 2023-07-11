@@ -17,19 +17,23 @@
 \indexentry{Community Detection|hyperpage}{7}
 \indexentry{Definition|hyperpage}{7}
 \indexentry{Methriken|hyperpage}{7}
-\indexentry{Algorithmen|hyperpage}{7}
-\indexentry{NetworkX|hyperpage}{7}
-\indexentry{CDlib - Bibliothek|hyperpage}{7}
-\indexentry{Durchführung der Bewertung|hyperpage}{9}
-\indexentry{Zusammenstellung der Testdaten|hyperpage}{9}
-\indexentry{Synthetische Daten|hyperpage}{9}
-\indexentry{Reale Daten|hyperpage}{9}
-\indexentry{Bewertungsfunktionen|hyperpage}{9}
-\indexentry{Experimente|hyperpage}{9}
-\indexentry{Analyse und Bewertung|hyperpage}{11}
-\indexentry{Ergebnisse der Algorithemen und Bewertungsfunktionen|hyperpage}{11}
-\indexentry{Vergleich der Ergebnisse|hyperpage}{11}
-\indexentry{Zusammenfassung|hyperpage}{13}
-\indexentry{Diskussion der Ergebnisse|hyperpage}{13}
-\indexentry{Grenzen der Studie|hyperpage}{13}
-\indexentry{Ausblick|hyperpage}{13}
+\indexentry{Modularity|hyperpage}{7}
+\indexentry{Density|hyperpage}{7}
+\indexentry{Edge Betweeness|hyperpage}{8}
+\indexentry{Degree Centrality|hyperpage}{8}
+\indexentry{Algorithmen|hyperpage}{8}
+\indexentry{NetworkX|hyperpage}{8}
+\indexentry{CDlib - Bibliothek|hyperpage}{9}
+\indexentry{Durchführung der Bewertung|hyperpage}{11}
+\indexentry{Zusammenstellung der Testdaten|hyperpage}{11}
+\indexentry{Synthetische Daten|hyperpage}{11}
+\indexentry{Reale Daten|hyperpage}{11}
+\indexentry{Bewertungsfunktionen|hyperpage}{11}
+\indexentry{Experimente|hyperpage}{11}
+\indexentry{Analyse und Bewertung|hyperpage}{13}
+\indexentry{Ergebnisse der Algorithemen und Bewertungsfunktionen|hyperpage}{13}
+\indexentry{Vergleich der Ergebnisse|hyperpage}{13}
+\indexentry{Zusammenfassung|hyperpage}{15}
+\indexentry{Diskussion der Ergebnisse|hyperpage}{15}
+\indexentry{Grenzen der Studie|hyperpage}{15}
+\indexentry{Ausblick|hyperpage}{15}

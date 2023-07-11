@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.25)  10 JUL 2023 07:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.25)  10 JUL 2023 15:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2442,7 +2442,7 @@ Class scrbook Warning: \float@addtolists detected!
 
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 13.67995pt on input line 14.
-<images/pictures/LaTeX_logo.svg.png, id=215, 803.0pt x 334.24875pt>
+<images/pictures/LaTeX_logo.svg.png, id=227, 803.0pt x 334.24875pt>
 File: images/pictures/LaTeX_logo.svg.png Graphic file (type png)
 <use images/pictures/LaTeX_logo.svg.png>
 Package pdftex.def Info: images/pictures/LaTeX_logo.svg.png  used on input line
@@ -2500,27 +2500,32 @@ LaTeX Warning: Citation 'noauthor_software_nodate' on page 2 undefined on input
 
 ]
 chapter 2.
-[5] [6
-
-
-]
+[5] [6]
 chapter 3.
-[7] [8
+
+Package amsmath Warning: Foreign command \over;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 114.
+
+[7
+
+
+] [8] [9] [10
 
 
 ]
 chapter 4.
-[9] [10
-
-
-]
-chapter 5.
 [11] [12
 
 
 ]
+chapter 5.
+[13] [14
+
+
+]
 chapter 6.
-) [13] [14
+) [15] [16
 
 
 
@@ -2662,23 +2667,32 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 71301 strings out of 478268
- 1635864 string characters out of 5846346
- 2778199 words of memory out of 5000000
- 88064 multiletter control sequences out of 15000+600000
- 544210 words of font info for 171 fonts, out of 8000000 for 9000
+ 71363 strings out of 478268
+ 1636870 string characters out of 5846346
+ 2779430 words of memory out of 5000000
+ 88087 multiletter control sequences out of 15000+600000
+ 545585 words of font info for 193 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  108i,21n,117p,10601b,2693s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2022/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2
-022/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2022/tex
-mf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2022/texmf-dist
-/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2022/texmf-dist/fonts
-/type1/urw/times/utmr8a.pfb>
-Output written on thesis.pdf (32 pages, 175213 bytes).
+{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/
+texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/20
+22/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2022/texmf-d
+ist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/
+public/lm/lmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/lm/
+lmmi8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/lm/lmr10.pfb><
+/usr/local/texlive/2022/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/t
+exlive/2022/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/202
+2/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2022/texmf-dis
+t/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/
+type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/u
+rw/helvetic/uhvr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/helv
+etic/uhvro8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr
+8a.pfb>
+Output written on thesis.pdf (34 pages, 230313 bytes).
 PDF statistics:
- 490 PDF objects out of 1000 (max. 8388607)
- 408 compressed objects within 5 object streams
- 77 named destinations out of 1000 (max. 500000)
- 55772 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 561 PDF objects out of 1000 (max. 8388607)
+ 463 compressed objects within 5 object streams
+ 83 named destinations out of 1000 (max. 500000)
+ 55804 words of extra memory for PDF output out of 61914 (max. 10000000)
 

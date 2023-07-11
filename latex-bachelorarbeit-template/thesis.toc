@@ -18,22 +18,26 @@
 \contentsline {section}{\numberline {3.1}Community Detection}{7}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}Definition}{7}{subsection.3.1.1}%
 \contentsline {subsection}{\numberline {3.1.2}Methriken}{7}{subsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.1.3}Algorithmen}{7}{subsection.3.1.3}%
-\contentsline {section}{\numberline {3.2}NetworkX}{7}{section.3.2}%
-\contentsline {section}{\numberline {3.3}CDlib - Biblitohek}{7}{section.3.3}%
-\contentsline {chapter}{\numberline {4}Durchführung der Bewertung}{9}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Zusammenstellung der Testdaten}{9}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Synthetische Daten}{9}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Reale Daten}{9}{subsection.4.1.2}%
-\contentsline {section}{\numberline {4.2}Bewertungsfunktionen}{9}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Experimente}{9}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Analyse und Bewertung}{11}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Ergebnisse der Algorithemen und Bewertungsfunktionen}{11}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Vergleich der Ergebnisse}{11}{section.5.2}%
-\contentsline {chapter}{\numberline {6}Zusammenfassung}{13}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Diskussion der Ergebnisse}{13}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Grenzen der Studie}{13}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Ausblick}{13}{section.6.3}%
+\contentsline {subsubsection}{\numberline {3.1.2.1}Modularity}{7}{subsubsection.3.1.2.1}%
+\contentsline {subsubsection}{\numberline {3.1.2.2}Density}{7}{subsubsection.3.1.2.2}%
+\contentsline {subsubsection}{\numberline {3.1.2.3}Edge Betweeness}{8}{subsubsection.3.1.2.3}%
+\contentsline {subsubsection}{\numberline {3.1.2.4}Degree Centrality}{8}{subsubsection.3.1.2.4}%
+\contentsline {subsection}{\numberline {3.1.3}Algorithmen}{8}{subsection.3.1.3}%
+\contentsline {section}{\numberline {3.2}NetworkX}{8}{section.3.2}%
+\contentsline {section}{\numberline {3.3}CDlib - Biblitohek}{9}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Durchführung der Bewertung}{11}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Zusammenstellung der Testdaten}{11}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Synthetische Daten}{11}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Reale Daten}{11}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}Bewertungsfunktionen}{11}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Experimente}{11}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Analyse und Bewertung}{13}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Ergebnisse der Algorithemen und Bewertungsfunktionen}{13}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Vergleich der Ergebnisse}{13}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Zusammenfassung}{15}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Diskussion der Ergebnisse}{15}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Grenzen der Studie}{15}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Ausblick}{15}{section.6.3}%
 \contentsline {chapter}{\nonumberline Abbildungsverzeichnis}{V}{chapter*.6}%
 \contentsline {chapter}{\nonumberline Tabellenverzeichnis}{VII}{chapter*.7}%
 \contentsline {chapter}{\nonumberline Quellcodeverzeichnis}{IX}{chapter*.8}%
