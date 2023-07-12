@@ -1,4 +1,5 @@
 import pickle
+import json
 import networkx as nx
 import networkx.algorithms.community.quality as m
 import matplotlib.pyplot as plt
@@ -27,6 +28,24 @@ def generate_graph_from_edgelist(filepointer):
         graph.add_edge(pair[0], pair[1])
 
     return graph
+
+
+def format_data(data, indent=0):
+    """
+    function to format and style data in a JSON file
+    :param data: dictionary to store in JSON file
+    :param indent:
+    :return: formatted data with indent according to depth
+    """
+    result = ""
+    for key, value in data.items():
+        result += " " * indent  # Einrückung entsprechend der Tiefe
+        result += f'"{key}": '
+        if isinstance(value, dict):
+            result += "{\n" + format_data(value, indent + 4) + " " * indent + "}\n"
+        else:
+            result += f'"{value}"\n'
+    return result
 
 
 def show_fitness_scores(graph, com_result):
