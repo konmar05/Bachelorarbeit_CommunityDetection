@@ -178,3 +178,37 @@ def get_benchmark_graphs(graph):
     fp.close()
 
     return g
+
+
+def average_degree(graph):
+    tmp = nx.degree(graph)
+    mean = 0
+    for i in tmp:
+        mean += i[1]
+
+    return mean / len(tmp)
+
+
+def average_centrality(graph):
+    tmp = nx.degree_centrality(graph)
+    mean = sum(tmp.values()) / len(tmp)
+    return mean
+
+
+def get_stats():
+    data = {}
+
+    for i in range(1, 7):
+        g = get_benchmark_graphs(i)
+        stats = {'nodes': nx.number_of_nodes(g),
+                 'edges': nx.number_of_edges(g),
+                 'density': nx.density(g),
+                 'avg_shortest_path': nx.average_shortest_path_length(g),
+                 'avg_degree': average_degree(g),
+                 'avg_centrality': average_centrality(g)}
+
+        name = 'Graph ' + str(i)
+        data[name] = stats
+
+    #with open('testdaten/results.json', 'w') as file:
+    #    file.write(format_data(data))
