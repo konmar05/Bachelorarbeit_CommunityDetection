@@ -68,34 +68,37 @@ def generate_benchmark_graphs():
     """
     function was used once, no further usage needed
     """
-    small_graph, com1 = benchmark.RPG([20, 15, 15], 0.68, 0.32)
-    medium_graph, com2 = benchmark.RPG([50, 40, 30, 60, 70], 0.57, 0.23)
-    large_graph, com3 = benchmark.RPG([500, 400, 300, 600, 800, 500, 400], 0.76, 0.24)
+    grp_1, com1 = benchmark.GRP(55, 13, 5, 0.5, 0.05)
+    grp_2, com2 = benchmark.GRP(55,  7, 5, 0.5, 0.05)
+    grp_3, com3 = benchmark.GRP(55, 13, 8, 0.5, 0.05)
 
-    grp_small, com4 = benchmark.GRP(50, 13, 5, 0.5, 0.05)
-    grp_medium, com5 = benchmark.GRP(250, 45, 10, 0.7, 0.1)
-    grp_large, com6 = benchmark.GRP(3500, 463, 7, 0.6, 0.091)
+    grp_4, com4 = benchmark.GRP(81, 13, 8, 0.6, 0.075)
+    grp_5, com5 = benchmark.GRP(81, 23, 8, 0.6, 0.075)
+    grp_6, com6 = benchmark.GRP(81, 13, 14, 0.6, 0.075)
 
-    nx.write_edgelist(small_graph, 'benchmark/rpg_small.txt', delimiter=' ')
-    nx.write_edgelist(medium_graph, 'benchmark/rpg_medium.txt', delimiter=' ')
-    nx.write_edgelist(large_graph, 'benchmark/rpg_large.txt', delimiter=' ')
-    nx.write_edgelist(grp_small, 'benchmark/grp_small.txt', delimiter=' ')
-    nx.write_edgelist(grp_medium, 'benchmark/grp_medium.txt', delimiter=' ')
-    nx.write_edgelist(grp_large, 'benchmark/grp_large.txt', delimiter=' ')
+    nx.write_edgelist(grp_1, 'benchmark/grp_1.txt', delimiter=' ')
+    nx.write_edgelist(grp_2, 'benchmark/grp_2.txt', delimiter=' ')
+    nx.write_edgelist(grp_3, 'benchmark/grp_3.txt', delimiter=' ')
+    nx.write_edgelist(grp_4, 'benchmark/grp_4.txt', delimiter=' ')
+    nx.write_edgelist(grp_5, 'benchmark/grp_5.txt', delimiter=' ')
+    nx.write_edgelist(grp_6, 'benchmark/grp_6.txt', delimiter=' ')
 
 
 def create_graph_layouts():
     """
     function was used one time for each graph, no further usage needed
     """
-    # load and create graph
-    fp1 = open('benchmark/grp_medium.txt')
-    g = generate_graph_from_edgelist(fp1)
-    fp1.close()
+    for i in range(0, 6):
+        tmp = str(i + 1)
+        # load and create graph
+        fp1 = open('benchmark/grp_' + tmp + '.txt', 'r')
+        g = generate_graph_from_edgelist(fp1)
+        fp1.close()
 
-    # choose place to store .pkl file
-    with open('benchmark/layouts/grp_medium.pkl', 'wb') as fp2:
-        pickle.dump(nx.spring_layout(g), fp2)
+        # choose place to store .pkl file
+        with open('benchmark/layouts/grp_' + tmp +'.pkl', 'wb') as fp2:
+            pickle.dump(nx.spring_layout(g), fp2)
+        fp2.close()
 
 
 # todo
@@ -131,28 +134,26 @@ def create_bar_diagramm():
     plt.show()
 
 
-def get_layout(size, generator_type):
+def get_layout(graph):
     """
     Attention, parameters have to be a string
-    :param size: small, medium, large
-    :param generator_type: rpg, grp
+    :param graph choose between graph 1, 2, 3, 4, 5, 6
     :return: dictionary with positions for nodes from networkX graph
     """
-    file_url = 'benchmark/layouts/' + generator_type + '_' + size + '.pkl'
+    file_url = 'benchmark/layouts/grp_' + str(graph) + '.pkl'
     with open(file_url, 'rb') as fp:
         dict_pos = pickle.load(fp)
 
     return dict_pos
 
 
-def get_benchmark_graphs(size, generator_type):
+def get_benchmark_graphs(graph):
     """
     Attention, parameters have to be a string
-    :param size: small, medium, large
-    :param generator_type: rpg, grp
+    :param graph choose between graph 1, 2, 3, 4, 5, 6
     :return: networkX graph
     """
-    file_url = 'benchmark/' + generator_type + '_' + size + '.txt'
+    file_url = 'benchmark/grp_' + str(graph) + '.txt'
     fp = open(file_url, 'r')
     g = generate_graph_from_edgelist(fp)
     fp.close()
