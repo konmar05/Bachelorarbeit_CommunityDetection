@@ -136,8 +136,8 @@ def create_bar_diagramm():
 
 def get_layout(graph):
     """
-    Attention, parameters have to be a string
-    :param graph choose between graph 1, 2, 3, 4, 5, 6
+
+    :param graph: choose between graph 1, 2, 3, 4, 5, 6
     :return: dictionary with positions for nodes from networkX graph
     """
     file_url = 'benchmark/layouts/grp_' + str(graph) + '.pkl'
@@ -149,8 +149,8 @@ def get_layout(graph):
 
 def get_benchmark_graphs(graph):
     """
-    Attention, parameters have to be a string
-    :param graph choose between graph 1, 2, 3, 4, 5, 6
+
+    :param graph: choose between graph 1, 2, 3, 4, 5, 6
     :return: networkX graph
     """
     file_url = 'benchmark/grp_' + str(graph) + '.txt'
