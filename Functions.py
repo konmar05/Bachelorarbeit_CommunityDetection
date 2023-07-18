@@ -48,39 +48,39 @@ def format_data(data, indent=0):
     return result
 
 
-def show_fitness_scores(graph, com_result):
+def show_fitness_scores(graph, node_clustering_obj):
     """
     functions for having a quick view in cmd-line to the major fitness scores from an algorithm
     :param graph: networkX graph
-    :param com_result: communities as NodeClustering
+    :param node_clustering_obj: communities as NodeClustering object
     :return: no return parameter
     """
-    print('Erkannte Communities: ', len(com_result.communities))
-    print('Modularity-Score: ', m.modularity(graph, com_result.communities))
-    print('avg_distance: ', evaluation.avg_distance(graph, com_result))
-    print('avg_embeddedness: ', evaluation.avg_embeddedness(graph, com_result))
-    print('avg_internal_degree: ', evaluation.average_internal_degree(graph, com_result))
-    print('edges_inside: ', evaluation.edges_inside(graph, com_result))
-    print('internal_edge_density: ', evaluation.internal_edge_density(graph, com_result))
-    print('size: ', evaluation.size(graph, com_result))
-    print('hub_dominance: ', evaluation.hub_dominance(graph, com_result))
-    print('scaled_density: ', evaluation.scaled_density(graph, com_result))
+    print('Erkannte Communities: ', len(node_clustering_obj.communities))
+    print('Modularity-Score: ', m.modularity(graph, node_clustering_obj.communities))
+    print('avg_distance: ', evaluation.avg_distance(graph, node_clustering_obj))
+    print('avg_embeddedness: ', evaluation.avg_embeddedness(graph, node_clustering_obj))
+    print('avg_internal_degree: ', evaluation.average_internal_degree(graph, node_clustering_obj))
+    print('edges_inside: ', evaluation.edges_inside(graph, node_clustering_obj))
+    print('internal_edge_density: ', evaluation.internal_edge_density(graph, node_clustering_obj))
+    print('size: ', evaluation.size(graph, node_clustering_obj))
+    print('hub_dominance: ', evaluation.hub_dominance(graph, node_clustering_obj))
+    print('scaled_density: ', evaluation.scaled_density(graph, node_clustering_obj))
     print('\n')
 
 
-def show_modularity_scores(graph, com_result):
+def show_modularity_scores(graph, node_clustering_obj):
     """
     functions for having q quick vieww in cmd-line to the modularity scores
     :param graph: networkX graph
-    :param com_result: communities as NodeClustering
+    :param node_clustering_obj: communities as NodeClustering object
     :return: no return parameter
     """
-    print('erdos_renyi: ', evaluation.erdos_renyi_modularity(graph, com_result))
-    print('link: ', evaluation.link_modularity(graph, com_result))
-    print('modularity_density: ', evaluation.modularity_density(graph, com_result))
-    print('modulaity_overlap: ', evaluation.modularity_overlap(graph, com_result))
-    print('newman_girvan: ', evaluation.newman_girvan_modularity(graph, com_result))
-    print('z_modularity: ', evaluation.z_modularity(graph, com_result))
+    print('erdos_renyi: ', evaluation.erdos_renyi_modularity(graph, node_clustering_obj))
+    print('link: ', evaluation.link_modularity(graph, node_clustering_obj))
+    print('modularity_density: ', evaluation.modularity_density(graph, node_clustering_obj))
+    print('modularity_overlap: ', evaluation.modularity_overlap(graph, node_clustering_obj))
+    print('newman_girvan: ', evaluation.newman_girvan_modularity(graph, node_clustering_obj))
+    print('z_modularity: ', evaluation.z_modularity(graph, node_clustering_obj))
 
 
 def generate_benchmark_graphs():
@@ -107,15 +107,14 @@ def create_graph_layouts():
     """
     function was used one time for each graph, no further usage needed
     """
-    for i in range(0, 6):
-        tmp = str(i + 1)
+    for i in range(1, 7):
         # load and create graph
-        fp1 = open('benchmark/grp_' + tmp + '.txt', 'r')
+        fp1 = open('benchmark/grp_' + str(i) + '.txt', 'r')
         g = generate_graph_from_edgelist(fp1)
         fp1.close()
 
         # choose place to store .pkl file
-        with open('benchmark/layouts/grp_' + tmp +'.pkl', 'wb') as fp2:
+        with open('benchmark/layouts/grp_' + str(i) + '.pkl', 'wb') as fp2:
             pickle.dump(nx.spring_layout(g), fp2)
         fp2.close()
 
@@ -128,7 +127,7 @@ def create_bar_diagramm():
     x_values = []
     y_values = []
 
-    fp = open('testdaten/tmp.txt', 'r')
+    fp = open('results/tmp.txt', 'r')
     list_pairs = []
     pairs = fp.readlines()
 
@@ -195,7 +194,11 @@ def average_centrality(graph):
     return mean
 
 
-def get_stats():
+def get_graph_stats():
+    """
+
+    :return: dictionary with all stats from all benchmark graphs
+    """
     data = {}
 
     for i in range(1, 7):
@@ -210,5 +213,42 @@ def get_stats():
         name = 'Graph ' + str(i)
         data[name] = stats
 
-    #with open('testdaten/results.json', 'w') as file:
-    #    file.write(format_data(data))
+    return data
+
+
+def get_fitness_scores(graph, node_clustering_obj):
+    """
+
+    :param graph: networkX graph
+    :param node_clustering_obj: NodeClustering object for communities
+    :return: dictionary with all fitness scores
+    """
+    scores = {'modularity_scores': get_modularity_scores(graph, node_clustering_obj),
+              'communities': len(node_clustering_obj.communities),
+              'avg_distance': evaluation.avg_distance(graph, node_clustering_obj),
+              'avg_embeddedness': evaluation.avg_embeddedness(graph, node_clustering_obj),
+              'avg_internal_degree': evaluation.average_internal_degree(graph, node_clustering_obj),
+              'edges_inside': evaluation.edges_inside(graph, node_clustering_obj),
+              'expansion': evaluation.expansion(graph, node_clustering_obj),
+              'internal_edge_density': evaluation.internal_edge_density(graph, node_clustering_obj),
+              'scaled_density': evaluation.scaled_density(graph, node_clustering_obj),
+              'size': evaluation.size(graph, node_clustering_obj)}
+
+    return scores
+
+
+def get_modularity_scores(graph, node_clustering_obj):
+    """
+
+    :param graph: networkX graph
+    :param node_clustering_obj: communities as NodeClustering object
+    :return: dictionary with all modularity scores
+    """
+    scores = {'erdos_renyi': evaluation.erdos_renyi_modularity(graph, node_clustering_obj),
+              'link': evaluation.link_modularity(graph, node_clustering_obj),
+              'modularity_density': evaluation.modularity_density(graph, node_clustering_obj),
+              'modularity_overlap': evaluation.modularity_overlap(graph, node_clustering_obj),
+              'girvan_newman': evaluation.newman_girvan_modularity(graph, node_clustering_obj),
+              'z_modularity': evaluation.z_modularity(graph, node_clustering_obj)}
+
+    return scores
