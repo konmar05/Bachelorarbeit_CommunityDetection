@@ -26,17 +26,6 @@ def first_try_with_several_algortihms():
     graph = f.get_benchmark_graphs("small", "grp") #todo -> function call incorrect
 
 
-    label_propagation = algorithms.label_propagation(graph)
-    louvain = algorithms.louvain(graph)
-    randomwalk = algorithms.walktrap(graph)
-    eigenvector = algorithms.eigenvector(graph)
-
-
-    with open('testdaten/results.json', 'a') as file:
-        # json.dump(data, file, indent=None, separators=(", ", ": "), ensure_ascii=False)
-
-        formatted_data = f.format_data(data)
-        file.write(formatted_data)
 
 
 # prototype with girvan-newmann
@@ -57,7 +46,7 @@ def res_girvan_newman():
 
     data = {'length': length, 'modularity': modularity}
 
-    with open('testdaten/results.json', 'a') as file:
+    with open('results/graph_stats.json', 'a') as file:
         # json.dump(data, file, indent=None, separators=(", ", ": "), ensure_ascii=False)
 
         formatted_data = f.format_data(data)
@@ -67,12 +56,34 @@ def res_girvan_newman():
 # main function/loop to run script
 def main():
 
+    graphs = {}
     for i in range(1, 7):
-        g = f.get_benchmark_graphs(i)
-        pos = f.get_layout(i)
 
-        nx.draw(g, pos)
-        plt.show()
+        name = 'graph_' + str(i)
+        algorithm = {}
+
+        graph = f.get_benchmark_graphs(i)
+
+        louvain = algorithms.louvain(graph)
+        label_propagation = algorithms.label_propagation(graph)
+        random_walk = algorithms.walktrap(graph)
+        eigenvector = algorithms.eigenvector(graph)
+        belief = algorithms.belief(graph)
+        infomap = algorithms.infomap(graph)
+
+        algorithm['louvain'] = f.get_fitness_scores(graph, louvain)
+        algorithm['lable_propagation'] = f.get_fitness_scores(graph, label_propagation)
+        algorithm['random_walk'] = f.get_fitness_scores(graph, random_walk)
+        algorithm['eigenvector'] = f.get_fitness_scores(graph, eigenvector)
+        algorithm['belief'] = f.get_fitness_scores(graph, belief)
+        algorithm['infomap'] = f.get_fitness_scores(graph, infomap)
+
+        graphs[name] = algorithm
+
+    with open('results/fitness_scores.json', 'w') as file:
+        fd = f.format_data(graphs)
+        file.write(fd)
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
