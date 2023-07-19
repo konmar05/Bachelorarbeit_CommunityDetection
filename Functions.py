@@ -127,7 +127,7 @@ def create_bar_diagramm():
     x_values = []
     y_values = []
 
-    fp = open('results/tmp.txt', 'r')
+    fp = open('evaluation/tmp.txt', 'r')
     list_pairs = []
     pairs = fp.readlines()
 
@@ -223,8 +223,7 @@ def get_fitness_scores(graph, node_clustering_obj):
     :param node_clustering_obj: NodeClustering object for communities
     :return: dictionary with all fitness scores
     """
-    scores = {'modularity_scores': get_modularity_scores(graph, node_clustering_obj),
-              'communities': len(node_clustering_obj.communities),
+    scores = {'communities': len(node_clustering_obj.communities),
               'avg_distance': evaluation.avg_distance(graph, node_clustering_obj),
               'avg_embeddedness': evaluation.avg_embeddedness(graph, node_clustering_obj),
               'avg_internal_degree': evaluation.average_internal_degree(graph, node_clustering_obj),
@@ -252,3 +251,33 @@ def get_modularity_scores(graph, node_clustering_obj):
               'z_modularity': evaluation.z_modularity(graph, node_clustering_obj)}
 
     return scores
+
+
+def get_scores(graph, node_clustering_obj):
+    """
+
+    :param graph: networkX graph
+    :param node_clustering_obj: community nodes as NodeClustering object
+    :return: a nested dictionary with all modularity and fitness scores calculated from one algorithm
+    """
+    data = {'modularity_scores': get_modularity_scores(graph, node_clustering_obj),
+            'fitness_scores': get_fitness_scores(graph, node_clustering_obj)}
+
+    return data
+
+
+def get_data(graph=None, algorithm=None, type_of_score=None, score=None):
+
+    with open('evaluation/alternative.json', 'r') as file:
+        tmp = json.load(file)
+
+    if graph is None and algorithm is None and type_of_score is None and score is None:
+        return tmp
+    elif algorithm is None and type_of_score is None and score is None:
+        return tmp[graph]
+    elif type_of_score is None and score is None:
+        return tmp[graph][algorithm]
+    elif score is None:
+        return tmp[graph][algorithm][type_of_score]
+    else:
+        return tmp[graph][algorithm][type_of_score][score]
