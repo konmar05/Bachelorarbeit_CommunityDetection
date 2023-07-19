@@ -97,6 +97,31 @@ def firs_test_run():
         print(tmp)
 
 
+# creating plots from results and scores
+def plots(graph, type_of_score, specific_score):
+
+    x_scale = []
+    y_scale = []
+
+    with open('evaluation/alternative.json', 'r') as file:
+        tmp = json.load(file)
+
+    tmp2 = tmp[graph]
+    for algo, scores in tmp2.items():
+        x_scale.append(algo)
+
+    for idx in x_scale:
+        y_scale.append(tmp2[idx][type_of_score][specific_score][2])
+
+    fig, ax = plt.subplots()
+    ax.scatter(x_scale, y_scale)
+    plt.grid(axis='y')
+    plt.ylabel(specific_score)
+    plt.show()
+
+
+
+
 # main function/loop to run script
 def main():
 
@@ -106,4 +131,10 @@ def main():
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    diagramms_for_graphs()
+    plots('graph_1', 'fitness_scores', 'edges_inside')
+    #plots('graph_1', 'modularity_scores', 'link')
+    #plots('graph_1', 'modularity_scores', 'modularity_density')
+    #plots('graph_1', 'modularity_scores', 'modularity_overlap')
+    #plots('graph_1', 'modularity_scores', 'girvan_newman')
+    #plots('graph_1', 'modularity_scores', 'z_modularity')
+
