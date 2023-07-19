@@ -9,61 +9,68 @@ import matplotlib.pyplot as plt
 from cdlib import algorithms, viz, evaluation, benchmark, datasets
 import Functions as f
 
+import json
+import pandas as pd
 
 
-#todo -> test with some algorithm, create function for styling and writing in json file
-def first_try_with_several_algortihms():
-    data_lp = {}
-    data_lou = {}
-    data_rw = {}
-    data_ev = {}
+# creating diagramms from test run
+def diagramms_for_graphs():
 
-    scores_lp = {}
-    scores_lou = {}
-    scores_rw = {}
-    scores_ev = {}
+    x_scale_names = []
+    y_scale_density = []
+    y_scale_asp = []
+    y_scale_edges = []
+    y_scale_nodes = []
+    y_scale_degree = []
 
-    graph = f.get_benchmark_graphs("small", "grp") #todo -> function call incorrect
+    with open('evaluation/graph_stats.json', 'r') as file:
+        tmp = json.load(file)
+
+    for graph, stats in tmp.items():
+        x_scale_names.append(graph)
+
+    for idx in x_scale_names:
+        y_scale_density.append(tmp[idx]['density'])
+        y_scale_asp.append(tmp[idx]['avg_shortest_path'])
+        y_scale_edges.append(tmp[idx]['edges'])
+        y_scale_nodes.append(tmp[idx]['nodes'])
+        y_scale_degree.append(tmp[idx]['avg_degree'])
+
+    plt.bar(x_scale_names, y_scale_density)
+    plt.ylabel('density')
+    plt.show()
+
+    plt.bar(x_scale_names, y_scale_asp)
+    plt.ylabel('avg_shortest_path')
+    plt.show()
+
+    plt.bar(x_scale_names, y_scale_edges)
+    plt.ylabel('edges')
+    plt.show()
+
+    plt.bar(x_scale_names, y_scale_nodes)
+    plt.ylabel('nodes')
+    plt.show()
+
+    fig, ax = plt.subplots()
+    ax.stem(x_scale_names, y_scale_degree)
+    #plt.bar(x_scale_names, y_scale_degree)
+    plt.ylabel('degree')
+    plt.show()
 
 
-
-
-# prototype with girvan-newmann
-def res_girvan_newman():
-    length = {}
-    modularity = {}
-    scores = {}
-    data = {}
-
-    graph = f.get_benchmark_graphs("small", "grp")
-    for i in range(0, 20):
-        attempt = i + 1
-        com = algorithms.girvan_newman(graph, attempt)
-
-        length[attempt] = len(com.communities)
-        modularity[attempt] = score.modularity(graph, com.communities)
-        #todo nested dict for fitness scores
-
-    data = {'length': length, 'modularity': modularity}
-
-    with open('results/graph_stats.json', 'a') as file:
-        # json.dump(data, file, indent=None, separators=(", ", ": "), ensure_ascii=False)
-
-        formatted_data = f.format_data(data)
-        file.write(formatted_data)
-
-
-# main function/loop to run script
-def main():
-
+# first test run
+def firs_test_run():
     graphs = {}
     for i in range(1, 7):
 
+        # local variables
         name = 'graph_' + str(i)
         algorithm = {}
-
+        data = {}
         graph = f.get_benchmark_graphs(i)
 
+        # running community detection algorithm
         louvain = algorithms.louvain(graph)
         label_propagation = algorithms.label_propagation(graph)
         random_walk = algorithms.walktrap(graph)
@@ -71,20 +78,32 @@ def main():
         belief = algorithms.belief(graph)
         infomap = algorithms.infomap(graph)
 
-        algorithm['louvain'] = f.get_fitness_scores(graph, louvain)
-        algorithm['lable_propagation'] = f.get_fitness_scores(graph, label_propagation)
-        algorithm['random_walk'] = f.get_fitness_scores(graph, random_walk)
-        algorithm['eigenvector'] = f.get_fitness_scores(graph, eigenvector)
-        algorithm['belief'] = f.get_fitness_scores(graph, belief)
-        algorithm['infomap'] = f.get_fitness_scores(graph, infomap)
+        # add data to dictionary
+        algorithm['louvain'] = f.get_scores(graph, louvain)
+        algorithm['lable_propagation'] = f.get_scores(graph, label_propagation)
+        algorithm['random_walk'] = f.get_scores(graph, random_walk)
+        algorithm['eigenvector'] = f.get_scores(graph, eigenvector)
+        algorithm['belief'] = f.get_scores(graph, belief)
+        algorithm['infomap'] = f.get_scores(graph, infomap)
 
         graphs[name] = algorithm
 
-    with open('results/fitness_scores.json', 'w') as file:
-        fd = f.format_data(graphs)
-        file.write(fd)
+    # write data to json file
+    with open('evaluation/alternative.json', 'w') as file:
+        #fd = f.format_data(graphs)
+        #file.write(fd)
+        tmp = json.dumps(graphs, indent=4)
+        json.dump(graphs, file, indent=4)
+        print(tmp)
 
+
+# main function/loop to run script
+def main():
+
+    tmp = f.get_graph_stats()
+    with open('evaluation/graph_stats.json', 'w') as file:
+        json.dump(tmp, file, indent=4)
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    main()
+    diagramms_for_graphs()
