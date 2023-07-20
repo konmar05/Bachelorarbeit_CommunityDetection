@@ -125,13 +125,18 @@ def plots(graph, type_of_score, specific_score):
 # main function/loop to run script
 def main():
 
-    tmp = f.get_graph_stats()
-    with open('evaluation/graph_stats.json', 'w') as file:
-        json.dump(tmp, file, indent=4)
+    for i in range(1,7):
+        g = f.get_benchmark_graphs(i)
+        pos = f.get_layout(i)
+
+        nx.draw(g, pos)
+        plt.show()
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    plots('graph_1', 'fitness_scores', 'edges_inside')
+    #main()
+    firs_test_run()
+    #plots('graph_1', 'fitness_scores', 'edges_inside')
     #plots('graph_1', 'modularity_scores', 'link')
     #plots('graph_1', 'modularity_scores', 'modularity_density')
     #plots('graph_1', 'modularity_scores', 'modularity_overlap')

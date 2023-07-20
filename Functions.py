@@ -208,7 +208,8 @@ def get_graph_stats():
                  'density': nx.density(g),
                  'avg_shortest_path': nx.average_shortest_path_length(g),
                  'avg_degree': average_degree(g),
-                 'avg_centrality': average_centrality(g)}
+                 'avg_centrality': average_centrality(g),
+                 'avg_transitivity': evaluation.avg_transitivity(g, nx.nodes(g))}
 
         name = 'Graph ' + str(i)
         data[name] = stats
@@ -231,6 +232,7 @@ def get_fitness_scores(graph, node_clustering_obj):
               'expansion': evaluation.expansion(graph, node_clustering_obj),
               'internal_edge_density': evaluation.internal_edge_density(graph, node_clustering_obj),
               'scaled_density': evaluation.scaled_density(graph, node_clustering_obj),
+              'avg_transitivity': evaluation.avg_transitivity(graph, node_clustering_obj),
               'size': evaluation.size(graph, node_clustering_obj)}
 
     return scores
