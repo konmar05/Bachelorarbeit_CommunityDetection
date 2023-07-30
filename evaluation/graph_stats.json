@@ -1,50 +1,50 @@
 {
     "Graph 1": {
-        "nodes": 55,
-        "edges": 211,
-        "density": 0.1420875420875421,
-        "avg_shortest_path": 2.2471380471380473,
-        "avg_degree": 7.672727272727273,
-        "avg_centrality": 0.1420875420875421
+        "nodes": 50,
+        "edges": 190,
+        "density": 0.15510204081632653,
+        "avg_shortest_path": 2.193469387755102,
+        "avg_degree": 7.6,
+        "avg_centrality": 0.15510204081632648
     },
     "Graph 2": {
-        "nodes": 55,
-        "edges": 140,
-        "density": 0.09427609427609428,
-        "avg_shortest_path": 2.705050505050505,
-        "avg_degree": 5.090909090909091,
-        "avg_centrality": 0.09427609427609422
+        "nodes": 50,
+        "edges": 119,
+        "density": 0.09714285714285714,
+        "avg_shortest_path": 2.7420408163265306,
+        "avg_degree": 4.76,
+        "avg_centrality": 0.09714285714285711
     },
     "Graph 3": {
-        "nodes": 54,
-        "edges": 204,
-        "density": 0.14255765199161424,
-        "avg_shortest_path": 2.2564640111809924,
-        "avg_degree": 7.555555555555555,
-        "avg_centrality": 0.14255765199161433
+        "nodes": 88,
+        "edges": 524,
+        "density": 0.13688610240334378,
+        "avg_shortest_path": 2.0334378265412747,
+        "avg_degree": 11.909090909090908,
+        "avg_centrality": 0.1368861024033438
     },
     "Graph 4": {
-        "nodes": 81,
-        "edges": 464,
-        "density": 0.14320987654320988,
-        "avg_shortest_path": 2.094753086419753,
-        "avg_degree": 11.45679012345679,
-        "avg_centrality": 0.14320987654320982
+        "nodes": 88,
+        "edges": 458,
+        "density": 0.11964472309299895,
+        "avg_shortest_path": 2.1298328108672937,
+        "avg_degree": 10.409090909090908,
+        "avg_centrality": 0.11964472309299891
     },
     "Graph 5": {
-        "nodes": 81,
-        "edges": 649,
-        "density": 0.20030864197530865,
-        "avg_shortest_path": 1.894753086419753,
-        "avg_degree": 16.02469135802469,
-        "avg_centrality": 0.20030864197530862
+        "nodes": 125,
+        "edges": 763,
+        "density": 0.09845161290322581,
+        "avg_shortest_path": 2.242967741935484,
+        "avg_degree": 12.208,
+        "avg_centrality": 0.09845161290322585
     },
     "Graph 6": {
-        "nodes": 81,
-        "edges": 473,
-        "density": 0.14598765432098765,
-        "avg_shortest_path": 2.0787037037037037,
-        "avg_degree": 11.679012345679013,
-        "avg_centrality": 0.14598765432098768
+        "nodes": 125,
+        "edges": 505,
+        "density": 0.06516129032258064,
+        "avg_shortest_path": 2.5356129032258066,
+        "avg_degree": 8.08,
+        "avg_centrality": 0.0651612903225807
     }
 }
