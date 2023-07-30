@@ -89,12 +89,9 @@ def firs_test_run():
         graphs[name] = algorithm
 
     # write data to json file
-    with open('evaluation/alternative.json', 'w') as file:
-        #fd = f.format_data(graphs)
-        #file.write(fd)
-        tmp = json.dumps(graphs, indent=4)
+    with open('evaluation/fitness_scores.json', 'w') as file:
         json.dump(graphs, file, indent=4)
-        print(tmp)
+
 
 
 # creating plots from results and scores
@@ -120,26 +117,13 @@ def plots(graph, type_of_score, specific_score):
     plt.show()
 
 
-
-
 # main function/loop to run script
 def main():
 
-    for i in range(1,7):
-        g = f.get_benchmark_graphs(i)
-        pos = f.get_layout(i)
+    firs_test_run()
 
-        nx.draw(g, pos)
-        plt.show()
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    #main()
-    firs_test_run()
-    #plots('graph_1', 'fitness_scores', 'edges_inside')
-    #plots('graph_1', 'modularity_scores', 'link')
-    #plots('graph_1', 'modularity_scores', 'modularity_density')
-    #plots('graph_1', 'modularity_scores', 'modularity_overlap')
-    #plots('graph_1', 'modularity_scores', 'girvan_newman')
-    #plots('graph_1', 'modularity_scores', 'z_modularity')
+    main()
 

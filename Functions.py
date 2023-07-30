@@ -87,13 +87,14 @@ def generate_benchmark_graphs():
     """
     function was used once, no further usage needed
     """
-    grp_1, com1 = benchmark.GRP(55, 13, 5, 0.5, 0.05)
-    grp_2, com2 = benchmark.GRP(55,  7, 5, 0.5, 0.05)
-    grp_3, com3 = benchmark.GRP(55, 13, 8, 0.5, 0.05)
+    grp_1, com1 = benchmark.GRP(n=50, s=13, v=13, p_in=0.5, p_out=0.05)
+    grp_2, com2 = benchmark.GRP(n=50,  s=7, v=7, p_in=0.5, p_out=0.05)
 
-    grp_4, com4 = benchmark.GRP(81, 13, 8, 0.6, 0.075)
-    grp_5, com5 = benchmark.GRP(81, 23, 8, 0.6, 0.075)
-    grp_6, com6 = benchmark.GRP(81, 13, 14, 0.6, 0.075)
+    grp_3, com3 = benchmark.GRP(n=88, s=13, v=13, p_in=0.4, p_out=0.1)
+    grp_4, com4 = benchmark.GRP(n=88, s=5, v=5, p_in=0.4, p_out=0.1)
+
+    grp_5, com5 = benchmark.GRP(n=125, s=13, v=13, p_in=0.6, p_out=0.05)
+    grp_6, com6 = benchmark.GRP(n=125, s=5, v=5, p_in=0.6, p_out=0.05)
 
     nx.write_edgelist(grp_1, 'benchmark/grp_1.txt', delimiter=' ')
     nx.write_edgelist(grp_2, 'benchmark/grp_2.txt', delimiter=' ')
@@ -209,7 +210,8 @@ def get_graph_stats():
                  'avg_shortest_path': nx.average_shortest_path_length(g),
                  'avg_degree': average_degree(g),
                  'avg_centrality': average_centrality(g),
-                 'avg_transitivity': evaluation.avg_transitivity(g, nx.nodes(g))}
+                 #'avg_transitivity': evaluation.avg_transitivity(g, nx.nodes(g))
+                 }
 
         name = 'Graph ' + str(i)
         data[name] = stats
@@ -283,3 +285,11 @@ def get_data(graph=None, algorithm=None, type_of_score=None, score=None):
         return tmp[graph][algorithm][type_of_score]
     else:
         return tmp[graph][algorithm][type_of_score][score]
+
+
+def write_graph_stats_to_file():
+
+    tmp = get_graph_stats()
+
+    with open('evaluation/graph_stats.json', 'w') as file:
+        json.dump(tmp, file,  indent=4)
