@@ -273,7 +273,7 @@ def get_scores(graph, node_clustering_obj):
 
 def get_data(graph=None, algorithm=None, type_of_score=None, score=None):
 
-    with open('evaluation/alternative.json', 'r') as file:
+    with open('evaluation/fitness_scores.json', 'r') as file:
         tmp = json.load(file)
 
     if graph is None and algorithm is None and type_of_score is None and score is None:
@@ -285,7 +285,7 @@ def get_data(graph=None, algorithm=None, type_of_score=None, score=None):
     elif score is None:
         return tmp[graph][algorithm][type_of_score]
     else:
-        return tmp[graph][algorithm][type_of_score][score]
+        return tmp[graph][algorithm][type_of_score][score][2]
 
 
 def write_graph_stats_to_file():
@@ -360,4 +360,50 @@ def test_subplotting():
     plt.ylim([min(y_shortest_path)-0.1, max(y_shortest_path)+0.1])
 
     plt.tight_layout()
+    plt.show()
+
+
+def plot_modularity_scores():
+
+    with open('evaluation/fitness_scores.json', 'r') as file:
+        tmp = json.load(file)
+
+    x_axes = ['erdos_renyi', 'link', 'modularity_density', 'modularity_overlap', 'girvan_newman', 'z_modularity']
+    l_algorithms = ['louvain', 'lable_propagation', 'random_walk', 'eigenvector', 'belief', 'infomap']
+
+    y_erdos = []
+    y_link = []
+    y_m_density = []
+    y_m_overlap = []
+    y_gir_new = []
+    y_z_mod = []
+
+    for algo in l_algorithms:
+        y_erdos.append(get_data('graph_1', algo, 'modularity_scores', 'erdos_renyi'))
+
+    for algo in l_algorithms:
+        y_link.append(get_data('graph_1', algo, 'modularity_scores', 'link'))
+
+    for algo in l_algorithms:
+        y_m_density.append(get_data('graph_1', algo, 'modularity_scores', 'modularity_density'))
+
+    for algo in l_algorithms:
+        y_m_overlap.append(get_data('graph_1', algo, 'modularity_scores', 'modularity_overlap'))
+
+    for algo in l_algorithms:
+        y_gir_new.append(get_data('graph_1', algo, 'modularity_scores', 'girvan_newman'))
+
+    for algo in l_algorithms:
+        y_z_mod.append(get_data('graph_1', algo, 'modularity_scores', 'z_modularity'))
+
+    plt.figure(figsize=(20, 12))
+
+    plt.scatter(x_axes, y_erdos)
+    plt.scatter(x_axes, y_link)
+    plt.scatter(x_axes, y_m_density)
+    plt.scatter(x_axes, y_m_overlap)
+    plt.scatter(x_axes, y_gir_new)
+    plt.scatter(x_axes, y_z_mod)
+    plt.yscale('log')
+
     plt.show()
