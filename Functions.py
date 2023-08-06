@@ -3,6 +3,7 @@ import json
 import networkx as nx
 import networkx.algorithms.community.quality as m
 import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
 from cdlib import algorithms, viz, evaluation, benchmark, datasets
 
 
@@ -293,3 +294,70 @@ def write_graph_stats_to_file():
 
     with open('evaluation/graph_stats.json', 'w') as file:
         json.dump(tmp, file,  indent=4)
+
+
+def test_subplotting():
+
+    with open('evaluation/graph_stats.json', 'r') as file:
+        tmp = json.load(file)
+
+    x_axes = ['Graph 1', 'Graph 2', 'Graph 3', 'Graph 4', 'Graph 5', 'Graph 6']
+    y_nodes = []
+    y_edges = []
+    y_density = []
+    y_shortest_path = []
+    y_degree = []
+
+    for g in tmp:
+        a = tmp[g]
+        y_nodes.append(a['nodes'])
+        y_edges.append(a['edges'])
+        y_density.append(a['density'])
+        y_shortest_path.append(a['avg_shortest_path'])
+        y_degree.append(a['avg_degree'])
+
+    plt.figure(figsize=(20, 12))
+    grid = gridspec.GridSpec(3, 3)
+
+    # local var for styling plots
+    ls = ':'
+    lw = 1
+
+    axes_1 = plt.subplot(grid[0, :])
+    axes_1.set_title('nodes')
+    axes_1.scatter(x_axes, y_nodes)
+    axes_1.axhline(min(y_nodes), c='green', ls=ls, lw=lw)
+    axes_1.axhline((min(y_nodes) + max(y_nodes))/2, c='orange', ls=ls, lw=lw)
+    axes_1.axhline(max(y_nodes), c='red', ls=ls, lw=lw)
+    plt.ylim([min(y_nodes)-10, max(y_nodes)+10])
+
+    axes_2 = plt.subplot(grid[1, :-1])
+    axes_2.set_title('edges')
+    axes_2.scatter(x_axes, y_edges)
+    for i in y_edges:
+        axes_2.axhline(i, c='blue', ls=ls, lw=lw)
+    plt.ylim([min(y_edges)-50, max(y_edges)+50])
+
+    axes_3 = plt.subplot(grid[1:, -1])
+    axes_3.set_title('density')
+    axes_3.scatter(x_axes, y_density)
+    for i in y_density:
+        axes_3.axhline(i, c='blue', ls=ls, lw=lw)
+    plt.ylim([min(y_density)-0.01, max(y_density)+0.01])
+
+    axes_4 = plt.subplot(grid[-1, 0])
+    axes_4.scatter(x_axes, y_degree)
+    axes_4.set_title('degree')
+    for i in y_degree:
+        axes_4.axhline(i, c='blue', ls=ls, lw=lw)
+    plt.ylim([min(y_degree)-1, max(y_degree)+1])
+
+    axes_5 = plt.subplot(grid[-1, -2])
+    axes_5.scatter(x_axes, y_shortest_path)
+    axes_5.set_title('shortest_path')
+    for i in y_shortest_path:
+        axes_5.axhline(i, c='blue', ls=ls, lw=lw)
+    plt.ylim([min(y_shortest_path)-0.1, max(y_shortest_path)+0.1])
+
+    plt.tight_layout()
+    plt.show()
