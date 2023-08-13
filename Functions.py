@@ -121,39 +121,6 @@ def create_graph_layouts():
         fp2.close()
 
 
-# todo
-def create_bar_diagramm():
-
-    plt.figure(figsize=(15, 7))
-    # Paare von Datenwerten
-    x_values = []
-    y_values = []
-
-    fp = open('evaluation/tmp.txt', 'r')
-    list_pairs = []
-    pairs = fp.readlines()
-
-    for l in pairs:
-        tmp = l.strip()
-        pair = tmp.split()
-        list_pairs.append(pair)
-
-    for p in list_pairs:
-        x_values.append(p[0])
-        y_values.append(p[1])
-
-    # Erstelle ein Balkendiagramm
-    plt.bar(x_values, y_values)
-
-    # Optionale Anpassungen des Diagramms
-    plt.xlabel('X-Werte')
-    plt.ylabel('Y-Werte')
-    plt.title('Balkendiagramm der Datenpaare')
-
-    # Zeige das Balkendiagramm an
-    plt.show()
-
-
 def get_layout(graph):
     """
 
@@ -251,7 +218,7 @@ def get_modularity_scores(graph, node_clustering_obj):
     scores = {'erdos_renyi': evaluation.erdos_renyi_modularity(graph, node_clustering_obj),
               'link': evaluation.link_modularity(graph, node_clustering_obj),
               'modularity_density': evaluation.modularity_density(graph, node_clustering_obj),
-              'modularity_overlap': evaluation.modularity_overlap(graph, node_clustering_obj),
+              # 'modularity_overlap': evaluation.modularity_overlap(graph, node_clustering_obj),
               'girvan_newman': evaluation.newman_girvan_modularity(graph, node_clustering_obj),
               'z_modularity': evaluation.z_modularity(graph, node_clustering_obj)}
 
@@ -265,27 +232,30 @@ def get_scores(graph, node_clustering_obj):
     :param node_clustering_obj: community nodes as NodeClustering object
     :return: a nested dictionary with all modularity and fitness scores calculated from one algorithm
     """
-    data = {'modularity_scores': get_modularity_scores(graph, node_clustering_obj),
+    data = {'communities': node_clustering_obj.communities,
+            'modularity_scores': get_modularity_scores(graph, node_clustering_obj),
             'fitness_scores': get_fitness_scores(graph, node_clustering_obj)}
 
     return data
 
 
-def get_data(graph=None, algorithm=None, type_of_score=None, score=None):
+def get_data(file_url, graph=None, run=None, algorithm=None, type_of_score=None, score=None):
 
-    with open('evaluation/fitness_scores.json', 'r') as file:
+    with open(file_url, 'r') as file:
         tmp = json.load(file)
 
-    if graph is None and algorithm is None and type_of_score is None and score is None:
+    if graph is None and run is None and algorithm is None and type_of_score is None and score is None:
         return tmp
-    elif algorithm is None and type_of_score is None and score is None:
+    elif run is None and algorithm is None and type_of_score is None and score is None:
         return tmp[graph]
+    elif algorithm is None and type_of_score is None and score is None:
+        return tmp[graph][run]
     elif type_of_score is None and score is None:
-        return tmp[graph][algorithm]
+        return tmp[graph][run][algorithm]
     elif score is None:
-        return tmp[graph][algorithm][type_of_score]
+        return tmp[graph][run][algorithm][type_of_score]
     else:
-        return tmp[graph][algorithm][type_of_score][score][2]
+        return tmp[graph][run][algorithm][type_of_score][score][2]
 
 
 def write_graph_stats_to_file():
@@ -406,4 +376,16 @@ def plot_modularity_scores():
     plt.scatter(x_axes, y_z_mod)
     plt.yscale('log')
 
+    plt.show()
+
+
+def plot_modularity_over_runs(graph, score):
+
+    x_axes = []
+    y_axes = []
+    for i in range(1, 21):
+        x_axes.append('run_' + str(i))
+        y_axes.append(get_data('evaluation/second_test.json', graph, 'run_' + str(i), 'girvan_newman', 'modularity_scores', score))
+
+    plt.scatter(x_axes, y_axes)
     plt.show()
