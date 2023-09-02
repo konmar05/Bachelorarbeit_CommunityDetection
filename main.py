@@ -151,24 +151,33 @@ def third_test_run():
     with open('evaluation/louvain.json', 'w') as file:
         json.dump(graphs, file, indent=4)
 
+
 # creating plots from results and scores
-def plots(graph, type_of_score, specific_score):
+def plots(graph='graph_1', type_of_score='modularity_scores', specific_score='girvan_newman', algorithm1='girvan_newman',
+          algorithm2=None, algorithm3=None, algorithm4=None, algorithm5=None, algorithm6=None, algorithm7=None, algorithm8=None):
 
+    file_url = 'evaluation/' + algorithm1 + '.json'
     x_scale = []
-    y_scale = []
+    list_alog1 = []
+    list_alog2 = []
+    list_alog3 = []
+    list_alog4 = []
+    list_alog5 = []
+    list_alog6 = []
 
-    with open('evaluation/alternative.json', 'r') as file:
+    with open(file_url, 'r') as file:
         tmp = json.load(file)
 
-    tmp2 = tmp[graph]
-    for algo, scores in tmp2.items():
-        x_scale.append(algo)
+    tests = tmp[graph]
+    for test_nbr, t_scores in tests.items():
+        x_scale.append(test_nbr)
 
     for idx in x_scale:
-        y_scale.append(tmp2[idx][type_of_score][specific_score][2])
+        list_alog1.append(tests[idx][type_of_score][specific_score][2])
 
-    fig, ax = plt.subplots()
-    ax.scatter(x_scale, y_scale)
+    fig = plt.figure(figsize=(20, 10))
+
+    plt.scatter(x_scale, list_alog1)
     plt.grid(axis='y')
     plt.ylabel(specific_score)
     plt.show()
@@ -213,14 +222,13 @@ def main_archiv():
     #test_algorithms()
 
 
-def main():
+def main_for_test():
     list_algorithm_for_test = ['louvain',
                                'infomap',
                                'label_propagation',
                                'eigenvector',
                                'girvan_newman',
                                'greedy_modularity',
-                               #'spectral',
                                'walktrap',
                                'async_fluid',
                                'walkscan',
@@ -229,7 +237,23 @@ def main():
     for algo in list_algorithm_for_test:
         test.test_algorithm(algo)
 
+
+def main():
+
+    g = 2
+    graph = f.get_benchmark_graphs(g)
+    pos = f.get_layout(g)
+
+    com = algorithms.louvain(graph)
+    viz.plot_network_clusters(graph, com, pos
+                              ,figsize=(8, 8)
+                              )
+    plt.show()
+
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    main()
+
+    main_for_test()
 

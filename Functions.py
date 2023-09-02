@@ -10,7 +10,7 @@ from cdlib import algorithms, viz, evaluation, benchmark, datasets
 def generate_graph_from_edgelist(filepointer):
     """
     reads an edge list and creates a complete networkX Graph
-    file has to be in folling form:
+    file has to be in following form:
     >> 1 3
     >> 3 6
     each line is represents an edge, between to nodes, nodes have to be seperated by a whitespace

@@ -1,6 +1,9 @@
+import matplotlib.pyplot as plt
+
 import Functions as f
-from cdlib import algorithms
+from cdlib import algorithms, viz
 import json
+
 
 # todo add parameter to specific algorithm (for example walkscan distance)
 def test_algorithm(algorithm):
@@ -34,8 +37,6 @@ def test_algorithm(algorithm):
                 com = algorithms.girvan_newman(graph, k)
             elif algorithm == 'greedy_modularity':
                 com = algorithms.greedy_modularity(graph)
-            elif algorithm == 'spectral':
-                com = algorithms.spectral(graph, k)
             elif algorithm == 'walktrap':
                 com = algorithms.walktrap(graph)
             elif algorithm == 'async_fluid':
@@ -46,6 +47,13 @@ def test_algorithm(algorithm):
                 com = algorithms.graph_entropy(graph)
 
             test_runs['test_' + str(k)] = f.get_scores(graph, com)
+
+            plot_size = (8, 8)
+            if i > 2:
+                plot_size = (10, 10)
+
+            viz.plot_network_clusters(graph, com, f.get_layout(i), figsize=plot_size)
+            plt.savefig('pictures/' + name + algorithm + 'test_' + str(k) + '.png')
 
         graphs[name] = test_runs
 
