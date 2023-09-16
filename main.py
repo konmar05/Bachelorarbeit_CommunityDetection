@@ -14,7 +14,7 @@ import json
 import pandas as pd
 
 
-# creating diagramms from test run
+# creating diagramms for graph stats
 def diagramms_for_graphs():
 
     x_scale_names = []
@@ -55,7 +55,6 @@ def diagramms_for_graphs():
 
     fig, ax = plt.subplots()
     ax.stem(x_scale_names, y_scale_degree)
-    #plt.bar(x_scale_names, y_scale_degree)
     plt.ylabel('degree')
     plt.show()
 
