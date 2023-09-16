@@ -218,8 +218,9 @@ def main_archiv():
     #f.plot_modularity_scores()
     #sec_test_run()
     # f.plot_modularity_over_runs('graph_1', 'girvan_newman')
-    third_test_run()
+    #third_test_run()
     #test_algorithms()
+    f.plot_benchmark_graphs()
 
 
 def main_for_test():
@@ -255,5 +256,5 @@ def main():
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
-    main_for_test()
+    main_archiv()
 
