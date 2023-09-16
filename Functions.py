@@ -148,6 +148,18 @@ def get_benchmark_graphs(graph):
     return g
 
 
+def plot_benchmark_graphs():
+
+    for i in range(1, 7):
+
+        plt.figure(figsize=(10, 10))
+        graph = get_benchmark_graphs(i)
+        pos = get_layout(i)
+
+        nx.draw(graph, pos)
+        plt.savefig('pictures/graph_' + str(i) + '.png')
+
+
 def average_degree(graph):
     tmp = nx.degree(graph)
     mean = 0
