@@ -251,6 +251,27 @@ def get_scores(graph, node_clustering_obj):
     return data
 
 
+def get_eval_scores(algorithm, graph=None, test=None, t_score=None, s_score=None):
+
+    with open('evaluation/' + algorithm + '.json', 'r') as file:
+        tmp = json.load(file)
+
+    if s_score == 'communities':
+        return tmp[graph][test][t_score][s_score]
+    else:
+        if graph is None and test is None and t_score is None and s_score is None:
+            return tmp
+        elif test is None and t_score is None and s_score is None:
+            return tmp[graph]
+        elif t_score is None and s_score is None:
+            return tmp[graph][test]
+        elif s_score is None:
+            return tmp[graph][test][t_score]
+        else:
+            return tmp[graph][test][t_score][s_score][2]
+
+
+
 def get_data(file_url, graph=None, run=None, algorithm=None, type_of_score=None, score=None):
 
     with open(file_url, 'r') as file:
