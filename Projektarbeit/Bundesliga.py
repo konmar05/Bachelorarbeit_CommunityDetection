@@ -80,7 +80,7 @@ def bundesliga(string):
     :return: returns a generated networkx graph according to above conditions
     """
 
-    url = 'data/bundesliga/'
+    url = 'Projektarbeit/bundesliga/'
     if string == 'complete':
         url = url + 'bundesliga_complete.txt'
     elif string == 'small':

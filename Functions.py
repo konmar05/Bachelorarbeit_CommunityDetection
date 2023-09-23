@@ -4,6 +4,8 @@ import networkx as nx
 import networkx.algorithms.community.quality as m
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
+import Variables as v
+import Test as test
 from cdlib import algorithms, viz, evaluation, benchmark, datasets
 
 
@@ -33,14 +35,14 @@ def generate_graph_from_edgelist(filepointer):
 
 def format_data(data, indent=0):
     """
-    function to format and style data in a JSON file
+    function to format and style Projektarbeit in a JSON file
     :param data: dictionary to store in JSON file
     :param indent:
-    :return: formatted data with indent according to depth
+    :return: formatted Projektarbeit with indent according to depth
     """
     result = ""
     for key, value in data.items():
-        result += " " * indent  # Einrückung entsprechend der Tiefe
+        result += " " * indent
         result += f'"{key}": '
         if isinstance(value, dict):
             result += "{\n" + format_data(value, indent + 4) + " " * indent + "}\n"
@@ -87,6 +89,8 @@ def show_modularity_scores(graph, node_clustering_obj):
 def generate_benchmark_graphs():
     """
     function was used once, no further usage needed
+
+    generates the benchmark graphs and saves the edgelist for each graph in a file
     """
     grp_1, com1 = benchmark.GRP(n=50, s=13, v=13, p_in=0.5, p_out=0.05)
     grp_2, com2 = benchmark.GRP(n=50,  s=7, v=7, p_in=0.5, p_out=0.05)
@@ -108,6 +112,8 @@ def generate_benchmark_graphs():
 def create_graph_layouts():
     """
     function was used one time for each graph, no further usage needed
+
+    saves the nodepositions from each benachmark graph
     """
     for i in range(1, 7):
         # load and create graph
@@ -123,8 +129,11 @@ def create_graph_layouts():
 
 def get_layout(graph):
     """
+    loads the layout from a graph.
 
-    :param graph: choose between graph 1, 2, 3, 4, 5, 6
+    function is used to have the same position for the nodes in every plot of a graph
+
+    :param graph: integer -> choose between graph 1, 2, 3, 4, 5, 6
     :return: dictionary with positions for nodes from networkX graph
     """
     file_url = 'benchmark/layouts/grp_' + str(graph) + '.pkl'
@@ -136,8 +145,9 @@ def get_layout(graph):
 
 def get_benchmark_graphs(graph):
     """
+    choose benchmark graph
 
-    :param graph: choose between graph 1, 2, 3, 4, 5, 6
+    :param graph: integer -> choose between graph 1, 2, 3, 4, 5, 6
     :return: networkX graph
     """
     file_url = 'benchmark/grp_' + str(graph) + '.txt'
@@ -149,6 +159,11 @@ def get_benchmark_graphs(graph):
 
 
 def plot_benchmark_graphs():
+    """
+    plots all benchmark graphs and saves the pictures
+
+    :return:
+    """
 
     for i in range(1, 7):
 
@@ -161,6 +176,12 @@ def plot_benchmark_graphs():
 
 
 def average_degree(graph):
+    """
+    function to caluclate the average_degree from all nodes in a given graph
+
+    :param graph:
+    :return: value for avg_degree
+    """
     tmp = nx.degree(graph)
     mean = 0
     for i in tmp:
@@ -170,6 +191,13 @@ def average_degree(graph):
 
 
 def average_centrality(graph):
+    """
+    function to calculate the average centrality from a given graph
+
+    :param graph:
+    :return: value for avg_centrality
+    """
+
     tmp = nx.degree_centrality(graph)
     mean = sum(tmp.values()) / len(tmp)
     return mean
@@ -177,6 +205,7 @@ def average_centrality(graph):
 
 def get_graph_stats():
     """
+    generates each benchmark graph and calculates the stats for [nodes, edges, density, shortest_path, degree, centrality]
 
     :return: dictionary with all stats from all benchmark graphs
     """
@@ -190,7 +219,6 @@ def get_graph_stats():
                  'avg_shortest_path': nx.average_shortest_path_length(g),
                  'avg_degree': average_degree(g),
                  'avg_centrality': average_centrality(g),
-                 #'avg_transitivity': evaluation.avg_transitivity(g, nx.nodes(g))
                  }
 
         name = 'Graph ' + str(i)
@@ -230,7 +258,6 @@ def get_modularity_scores(graph, node_clustering_obj):
     scores = {'erdos_renyi': evaluation.erdos_renyi_modularity(graph, node_clustering_obj),
               'link': evaluation.link_modularity(graph, node_clustering_obj),
               'modularity_density': evaluation.modularity_density(graph, node_clustering_obj),
-              # 'modularity_overlap': evaluation.modularity_overlap(graph, node_clustering_obj),
               'girvan_newman': evaluation.newman_girvan_modularity(graph, node_clustering_obj),
               'z_modularity': evaluation.z_modularity(graph, node_clustering_obj)}
 
@@ -291,7 +318,7 @@ def get_data(file_url, graph=None, run=None, algorithm=None, type_of_score=None,
         return tmp[graph][run][algorithm][type_of_score][score][2]
 
 
-def write_graph_stats_to_file():
+def save_graph_stats():
 
     tmp = get_graph_stats()
 
@@ -299,7 +326,7 @@ def write_graph_stats_to_file():
         json.dump(tmp, file,  indent=4)
 
 
-def test_subplotting():
+def plot_graph_stats():
 
     with open('evaluation/graph_stats.json', 'r') as file:
         tmp = json.load(file)
@@ -412,13 +439,233 @@ def plot_modularity_scores():
     plt.show()
 
 
-def plot_modularity_over_runs(graph, score):
+def run_test():
+    """
+    function to run all test, for each algorithm on every graph
+    :return:
+    """
+    list_algorithm_for_test = ['louvain',
+                               'infomap',
+                               'label_propagation',
+                               'eigenvector',
+                               'girvan_newman',
+                               'greedy_modularity',
+                               'walktrap',
+                               'async_fluid',
+                               'walkscan',
+                               'graph_entropy']
 
-    x_axes = []
-    y_axes = []
-    for i in range(1, 21):
-        x_axes.append('run_' + str(i))
-        y_axes.append(get_data('evaluation/second_test.json', graph, 'run_' + str(i), 'girvan_newman', 'modularity_scores', score))
+    for algo in list_algorithm_for_test:
+        test.test_algorithm(algo)
 
-    plt.scatter(x_axes, y_axes)
+
+def choose_scores(array_algorithm, graph, array_test, t_score, s_score):
+    """
+    choose a specific score to load from the algorithm.json files
+
+    function is optimzed for use in "plot_scores()"
+
+    :param array_algorithm: array to choose algorithms
+    :param graph: choose graph
+    :param array_test: array to choose test
+    :param t_score: choose type of score
+    :param s_score: choose specific score
+    :return: returns a array with the specific scores, using as x_scale
+    """
+    x_scale_array = []
+
+    for i in range(0, len(array_algorithm)):
+        tmp = get_eval_scores(
+            algorithm=array_algorithm[i],
+            graph=graph,
+            test='test_'+str(array_test[i]),
+            t_score=t_score,
+
+            s_score=s_score)
+
+        x_scale_array.append(tmp)
+    return x_scale_array
+
+
+def plot_scores(g):
+    """
+    Generates subplots for all fitness_scores
+
+    some arrys need to changed before running the script
+
+    y_scale[] -> array to choose the algorithms
+
+    test_array[] -> array to choose the test for the algorithm (first index refers to first index in y_scale, second to second and so on ...)
+
+
+
+    :param g: choose between 'graph_1' to 'graph_6'
+    :return:
+    """
+
+    fig, axs = plt.subplots(nrows=2, ncols=5, layout='constrained', sharey='row', figsize=(11, 5))
+    fig.suptitle('fitness scores')
+
+    y_scale = [v.lv, v.gm, v.af, v.wt, v.ev, v.gn]  # change this  array to choose the algorithms
+    test_array = [12, 9, 8, 9, 9, 20]  # change this array to choose the test (1-20)
+
+    x_communities = choose_scores(y_scale, g, test_array, v.f_scores, v.f_com)
+    x_distance = choose_scores(y_scale, g, test_array, v.f_scores, v.f_dist)
+    x_embeddedness = choose_scores(y_scale, g, test_array, v.f_scores, v.f_embd)
+    x_internal_degree = choose_scores(y_scale, g, test_array, v.f_scores, v.f_iDeg)
+    x_edges_inside = choose_scores(y_scale, g, test_array, v.f_scores, v.f_edges)
+    x_expansion = choose_scores(y_scale, g, test_array, v.f_scores, v.f_exp)
+    x_internal_edge_density = choose_scores(y_scale, g, test_array, v.f_scores, v.f_iEDen)
+    x_scaled_density = choose_scores(y_scale, g, test_array, v.f_scores, v.f_scDen)
+    x_transitivity = choose_scores(y_scale, g, test_array, v.f_scores, v.f_trans)
+    x_size = choose_scores(y_scale, g, test_array, v.f_scores, v.f_size)
+
+    # add supplots
+    axs[0, 0].scatter(x_communities, y_scale)
+    axs[0, 1].scatter(x_distance, y_scale)
+    axs[1, 1].scatter(x_embeddedness, y_scale)
+    axs[1, 4].scatter(x_internal_degree, y_scale)
+    axs[0, 4].scatter(x_edges_inside, y_scale)
+    axs[1, 0].scatter(x_expansion, y_scale)
+    axs[0, 2].scatter(x_internal_edge_density, y_scale)
+    axs[1, 2].scatter(x_scaled_density, y_scale)
+    axs[1, 3].scatter(x_transitivity, y_scale)
+    axs[0, 3].scatter(x_size, y_scale)
+
+    # set supplot titles
+    axs[0, 0].set_title(v.f_com)
+    axs[0, 1].set_title(v.f_dist)
+    axs[1, 1].set_title(v.f_embd)
+    axs[1, 4].set_title(v.f_iDeg)
+    axs[0, 4].set_title(v.f_edges)
+    axs[1, 0].set_title(v.f_exp)
+    axs[0, 2].set_title(v.f_iEDen)
+    axs[1, 2].set_title(v.f_scDen)
+    axs[1, 3].set_title(v.f_trans)
+    axs[0, 3].set_title(v.f_size)
+
+    plt.show()
+
+
+def plot_best_results(graph='graph_1', type_of_score='modularity_scores', specific_score='girvan_newman'):
+    """
+
+    Generates a plot, where you can see all the results from a fitness or modularity score in every test
+
+    :param graph: choose between 'graph_1' to 'graph_6'
+    :param type_of_score: choose between (fitness_scores, modularity_scores) (default is 'modularity_scores')
+    :param specific_score: choose a specific score according to his type, more info in Variables.py (default is 'girvan_newman')
+    :return: no return value
+    """
+
+    fig = plt.figure(figsize=(14, 7))
+    fig.suptitle(graph)
+
+    array_scores_gn = get_eval_scores_as_array(graph, algorithm='girvan_newman')
+    array_scores_lv = get_eval_scores_as_array(graph, algorithm='louvain')
+    array_scores_lp = get_eval_scores_as_array(graph, algorithm='label_propagation')
+    array_scores_ev = get_eval_scores_as_array(graph, algorithm='eigenvector')
+    array_scores_im = get_eval_scores_as_array(graph, algorithm='infomap')
+    array_scores_rw = get_eval_scores_as_array(graph, algorithm='walktrap')
+    array_scores_gm = get_eval_scores_as_array(graph, algorithm='greedy_modularity')
+    array_scores_af = get_eval_scores_as_array(graph, algorithm='async_fluid')
+
+    x_scale = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12', 'T13', 'T14', 'T15', 'T16', 'T17', 'T18', 'T19', 'T20']
+    plt.plot(x_scale, array_scores_lv[1], label='louvain')
+    plt.plot(x_scale, array_scores_gn[1], label='girvan_newman')
+    plt.plot(x_scale, array_scores_lp[1], label='label_propagation')
+    plt.plot(x_scale, array_scores_ev[1], label='eigenvector')
+    plt.plot(x_scale, array_scores_im[1], label='infomap')
+    plt.plot(x_scale, array_scores_rw[1], label='random_walk')
+    plt.plot(x_scale, array_scores_gm[1], label='greedy_modularity')
+    plt.plot(x_scale, array_scores_af[1], label='async_fluid')
+
+    plt.grid(axis='y')
+    plt.yticks([0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5])
+    plt.grid(axis='x')
+    plt.ylabel('modularity')
+    plt.legend()
+    plt.show()
+
+
+# get list with scores according to parameter from function
+def get_eval_scores_as_array(graph='graph_1', type_of_score='modularity_scores', specific_score='girvan_newman', algorithm='girvan_newman'):
+    """
+    return a tuple of arrays
+
+    index 0 is for x_scale
+
+    index 1 is for y_scale
+    :param graph: choose between graph_1 to graph_6
+    :param type_of_score: choose between "modularity_scores" and "fitness_scores"
+    :param specific_score: choose score
+
+            m_scores: (erdos_renyi, link, modularity_density, girvan_newman, z_modularity)
+
+            f_scores: (communities, avg_distance, avg_embeddedness, avg_internal_degree, edges_inside, expansion, internal_edge_density_ scaled_density_ avg_tramstivity, size)
+
+    :param algorithm: choose algorithm (louvain, infomap, label_propagation, eigenvector, girvan_newman , greedy_modularity, walktrap, async_fluid, walkscan, graph_entropy
+    :return: returns a tuple of arrayswith the scores according to parameters , index 0 is for x_scale and shows the Test-Nbr, index 1 is for y_scale and holds the values
+    """
+    file_url = 'evaluation/' + algorithm + '.json'
+
+    with open(file_url, 'r') as file:
+        tmp = json.load(file)
+
+    x_scale = []
+    y_scale_scores = []
+    tests = tmp[graph]
+    for test_nbr, t_scores in tests.items():
+        x_scale.append(test_nbr)
+
+    for idx in x_scale:
+        y_scale_scores.append(tests[idx][type_of_score][specific_score][2])
+
+    return x_scale, y_scale_scores
+
+
+# creating plots from results and scores
+def plots(graph='graph_1', type_of_score='modularity_scores', specific_score='girvan_newman', algorithm1='girvan_newman',
+          algorithm2=None, algorithm3=None, algorithm4=None, algorithm5=None, algorithm6=None, algorithm7=None, algorithm8=None):
+    """
+    older function, not used anymore
+
+    :param graph:
+    :param type_of_score:
+    :param specific_score:
+    :param algorithm1:
+    :param algorithm2:
+    :param algorithm3:
+    :param algorithm4:
+    :param algorithm5:
+    :param algorithm6:
+    :param algorithm7:
+    :param algorithm8:
+    :return:
+    """
+
+    file_url = 'evaluation/' + algorithm1 + '.json'
+    x_scale = []
+    list_alog1 = []
+    list_alog2 = []
+    list_alog3 = []
+    list_alog4 = []
+    list_alog5 = []
+    list_alog6 = []
+
+    with open(file_url, 'r') as file:
+        tmp = json.load(file)
+
+    tests = tmp[graph]
+    for test_nbr, t_scores in tests.items():
+        x_scale.append(test_nbr)
+
+    for idx in x_scale:
+        list_alog1.append(tests[idx][type_of_score][specific_score][2])
+
+    fig = plt.figure(figsize=(20, 10))
+
+    plt.scatter(x_scale, list_alog1)
+    plt.grid(axis='y')
+    plt.ylabel(specific_score)
     plt.show()

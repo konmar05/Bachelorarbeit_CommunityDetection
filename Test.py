@@ -80,6 +80,6 @@ def test_algorithm(algorithm):
 
         graphs[name] = test_runs
 
-    # write data to json file
+    # write Projektarbeit to json file
     with open(url, 'w') as file:
         json.dump(graphs, file, indent=4)
